@@ -1,4 +1,4 @@
-# AWS Bucket with MFA delete deny
+# AWS Bucket with MFA delete "Deny"
 
 Create the `.auto.tfvars`:
 
