@@ -65,6 +65,11 @@ data "aws_iam_policy_document" "mfa_delete" {
     resources = [
       "${aws_s3_bucket.restricted.arn}/mfa-objects/*",
     ]
+    condition {
+      test     = "Null"
+      variable = "aws:MultiFactorAuthAge"
+      values   = [true]
+    }
   }
 }
 
