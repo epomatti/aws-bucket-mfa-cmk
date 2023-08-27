@@ -47,6 +47,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "restricted" {
 }
 
 resource "aws_s3_bucket_policy" "mfa_delete" {
+  count  = var.mfa_policy_enabled == true ? 1 : 0
   bucket = aws_s3_bucket.restricted.id
   policy = data.aws_iam_policy_document.mfa_delete.json
 }
@@ -57,13 +58,10 @@ data "aws_iam_policy_document" "mfa_delete" {
       type        = "*"
       identifiers = ["*"]
     }
-
     effect = "Deny"
-
     actions = [
       "s3:DeleteObject*"
     ]
-
     resources = [
       "${aws_s3_bucket.restricted.arn}/mfa-objects/*",
     ]

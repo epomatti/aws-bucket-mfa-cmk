@@ -26,7 +26,8 @@ module "sensitive" {
 
 ### Restricted Bucket ###
 module "restricted" {
-  source         = "./buckets/restricted"
-  workload       = local.workload
-  aws_account_id = local.account_id
+  source             = "./buckets/restricted"
+  mfa_policy_enabled = var.mfa_policy_enabled
+  workload           = local.workload
+  aws_account_id     = local.account_id
 }

@@ -1,4 +1,10 @@
-# aws-bucket-mfa-cmk
+# AWS Bucket with MFA delete deny
+
+Create the `.auto.tfvars`:
+
+```terraform
+mfa_policy_enabled = true
+```
 
 To create the resources:
 
