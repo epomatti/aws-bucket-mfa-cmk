@@ -19,9 +19,10 @@ locals {
 
 ### Sensitive Bucket ###
 module "sensitive" {
-  source         = "./buckets/sensitive"
-  workload       = local.workload
-  aws_account_id = local.account_id
+  source             = "./buckets/sensitive"
+  enforce_kms_policy = var.enforce_kms_policy
+  workload           = local.workload
+  aws_account_id     = local.account_id
 }
 
 ### Restricted Bucket ###

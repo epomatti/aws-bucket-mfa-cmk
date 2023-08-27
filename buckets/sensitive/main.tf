@@ -45,3 +45,30 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "sensitive" {
     }
   }
 }
+
+resource "aws_s3_bucket_policy" "put_object_kms" {
+  count  = var.enforce_kms_policy == true ? 1 : 0
+  bucket = aws_s3_bucket.sensitive.id
+  policy = data.aws_iam_policy_document.put_object_kms.json
+}
+
+data "aws_iam_policy_document" "put_object_kms" {
+  statement {
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+    effect = "Deny"
+    actions = [
+      "s3:PutObject*"
+    ]
+    resources = [
+      "${aws_s3_bucket.restricted.arn}/enforced-kms/*"
+    ]
+    condition {
+      test     = "StringNotEquals"
+      variable = "s3:x-amz-server-side-encryption"
+      values   = ["aws:kms"]
+    }
+  }
+}
