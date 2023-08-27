@@ -16,6 +16,8 @@ terraform apply -auto-approve
 
 KMS encryption will be enforced with a `"s3:x-amz-server-side-encryption":"aws:kms"` condition.
 
+MFA delete controlled with `"aws:MultiFactorAuthAge"`.
+
 Few notes about SSE-KMS with CMK:
 
 - When using SSE-KMS, S3 automatically applies [envelope encryption][1]. Every object has it's own key.
