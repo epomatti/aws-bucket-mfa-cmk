@@ -63,7 +63,7 @@ data "aws_iam_policy_document" "put_object_kms" {
       "s3:PutObject*"
     ]
     resources = [
-      "${aws_s3_bucket.restricted.arn}/enforced-kms/*"
+      "${aws_s3_bucket.sensitive.arn}/enforced-kms/*"
     ]
     condition {
       test     = "StringNotEquals"
